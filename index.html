@@ -23,7 +23,7 @@
             <div class="col-md-6 col-md-offset-3">
                 <h1>BookLook <i class="fa fa-eye" aria-hidden="true"></i></h1>
                 <hr>
-                <form>
+                <form action="#">
                     <div class="form-group">
                         <label for="isbnnumber"><h3>Search by ISBN</h3></label>
                         <input type="number" class="form-control" id="isbnnumber" placeholder="Search by isbn">
@@ -31,22 +31,31 @@
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
             </div>
+            <div class="help">Help</div>
         </header>
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-6 col-md-offset-3 results">
 
             </div>
         </div>
     </div>
-    <script src="node_modules/jquery/dist/jquery.js">
-
-
+    <script id="book-template" type="text/x-handlebars-template">
+        <div>
+            <h1>
+                {{ title }}
+            </h1>
+            <h3>
+                {{ publisher }} / {{ publishedDate }}
+            </h3>
+            <p>
+                {{ description }}
+            </p>
+            <a href="{{infoLink}}" target="_blank">Click here</a>
+        </div>
     </script>
-    <script src="node_modules/handlebars/dist/handlebars.min.js">
-
-
-    </script>
-
+    <script src="node_modules/jquery/dist/jquery.js"></script>
+    <script src="node_modules/handlebars/dist/handlebars.js"></script>
+    <script src="script.js"></script>
 </body>
 
 </html>
