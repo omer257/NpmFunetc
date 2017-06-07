@@ -40,9 +40,10 @@
             // Work with the response
             success: function (response) {
                 $('.results').empty();
-                if (response.items.length > 0) {
+                if (response.items !== undefined) {
                     response.items.forEach(function (item) {
                         var data = item.volumeInfo;
+                        var img  = data.imageLinks!==undefined?data.imageLinks.thumbnail:'http://funnystack.com/wp-content/uploads/2015/07/Funny-Children-32.jpg';
                         var newHTML = template({
                             title: data.title || 'Unknown :( ',
                             publisher: data.publisher || 'Unknown :( ',
@@ -50,7 +51,7 @@
                             description: data.description || 'Unknown :( ',
                             infoLink: data.infoLink || 'Unknown :( ',
                             id: item.id || 'Unknown :( ',
-                            image: data.imageLinks.thumbnail || 'http://funnystack.com/wp-content/uploads/2015/07/Funny-Children-32.jpg'
+                            image: img
                         });
                         $('.results').append(newHTML);
                     });
