@@ -44,12 +44,12 @@
                     response.items.forEach(function (item) {
                         var data = item.volumeInfo;
                         var newHTML = template({
-                            title: data.title,
-                            publisher: data.publisher,
-                            publishedDate: data.publishedDate,
-                            description: data.description,
-                            infoLink: data.infoLink,
-                            id: item.id,
+                            title: data.title || 'Unknown :( ',
+                            publisher: data.publisher || 'Unknown :( ',
+                            publishedDate: data.publishedDate || 'Unknown :( ',
+                            description: data.description || 'Unknown :( ',
+                            infoLink: data.infoLink || 'Unknown :( ',
+                            id: item.id || 'Unknown :( ',
                             image: data.imageLinks.thumbnail || 'http://funnystack.com/wp-content/uploads/2015/07/Funny-Children-32.jpg'
                         });
                         $('.results').append(newHTML);
@@ -57,8 +57,6 @@
                 } else {
                     $('.results').append('No results found');
                 }
-
-
             },
             error: function (response) {
                 console.log('fcuked'); // server response
