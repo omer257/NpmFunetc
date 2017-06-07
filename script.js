@@ -1,7 +1,7 @@
-(function isdnPrj() {
+(function () {
 
-
-    var getUrlParameter = function getUrlParameter(sParam) {
+    
+    var getUrlParameter = function getUrlParameter(sParam) {//Handle a get request helper
         var sPageURL = decodeURIComponent(window.location.search.substring(1)),
             sURLVariables = sPageURL.split('&'),
             sParameterName,
@@ -15,13 +15,28 @@
             }
         }
     };
+
     var source = $('#book-template').html();
     var template = Handlebars.compile(source);
     var id = getUrlParameter('id');
 
+    var handleRes = function(item){
+        var data = item.volumeInfo;
+                        var img = data.imageLinks !== undefined ? data.imageLinks.thumbnail : 'http://funnystack.com/wp-content/uploads/2015/07/Funny-Children-32.jpg';
+                        var newHTML = template({
+                            title: data.title || 'Unknown :( ',
+                            publisher: data.publisher || 'Unknown :( ',
+                            publishedDate: data.publishedDate || 'Unknown :( ',
+                            description: data.description || 'Unknown :( ',
+                            infoLink: data.infoLink || 'Unknown :( ',
+                            id: item.id || 'Unknown :( ',
+                            image: img
+                        });
+                        $('.results').append(newHTML);
+    }
 
     var getData = function (item) {
-        var LoadingAJax='<img src="http://bestanimations.com/Animals/Mammals/Dogs/dogs/cute-funny-dog-animated-gif-8.gif">';
+        var LoadingAJax = '<img src="http://bestanimations.com/Animals/Mammals/Dogs/dogs/cute-funny-dog-animated-gif-8.gif">';
         $('.results').empty().html(LoadingAJax)
         $.ajax({
             url: "https://www.googleapis.com/books/v1/volumes?q=" + item + '&rnd=' + Math.random(),
@@ -42,18 +57,7 @@
                 $('.results').empty();
                 if (response.items !== undefined) {
                     response.items.forEach(function (item) {
-                        var data = item.volumeInfo;
-                        var img  = data.imageLinks!==undefined?data.imageLinks.thumbnail:'http://funnystack.com/wp-content/uploads/2015/07/Funny-Children-32.jpg';
-                        var newHTML = template({
-                            title: data.title || 'Unknown :( ',
-                            publisher: data.publisher || 'Unknown :( ',
-                            publishedDate: data.publishedDate || 'Unknown :( ',
-                            description: data.description || 'Unknown :( ',
-                            infoLink: data.infoLink || 'Unknown :( ',
-                            id: item.id || 'Unknown :( ',
-                            image: img
-                        });
-                        $('.results').append(newHTML);
+                        handleRes(item);
                     });
                 } else {
                     $('.results').append('No results found');
@@ -64,7 +68,7 @@
             }
         });
     };
-    if (id !== undefined) {
+    if (id !== undefined) {//Handle a get request
         getData(id);
     }
     $("form").submit(function () {
