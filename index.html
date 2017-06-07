@@ -26,12 +26,11 @@
                 <form action="#">
                     <div class="form-group">
                         <label for="isbnnumber"><h3>Search by ISBN</h3></label>
-                        <input type="number" class="form-control" id="isbnnumber" placeholder="Search by isbn">
+                        <input type="text" class="form-control" id="isbnnumber" placeholder="Search by isbn">
                     </div>
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
             </div>
-            <div class="help">Help</div>
         </header>
         <div class="row">
             <div class="col-md-6 col-md-offset-3 results">
@@ -44,6 +43,7 @@
             <h1>
                 {{ title }}
             </h1>
+            <img src="{{image}}" alt="{{ title }}">
             <h3>
                 {{ publisher }} / {{ publishedDate }}
             </h3>
@@ -51,6 +51,7 @@
                 {{ description }}
             </p>
             <a href="{{infoLink}}" target="_blank">Click here</a>
+            <a href="?id={{ id }}" target="_blank">Open in new page</a>
         </div>
     </script>
     <script src="node_modules/jquery/dist/jquery.js"></script>
